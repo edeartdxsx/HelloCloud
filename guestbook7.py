@@ -18,11 +18,11 @@ class Comments(db.Model):
 @app.route('/')
 def index():
     result = Comments.query.all()
-    return render_template('index7.html' , result=result)
+    return render_template('index.html' , result=result)
 
 @app.route('/sign')
 def sign():
-    return render_template('sign7.html')
+    return render_template('sign.html')
 
 @app.route('/process', methods=['POST'])
 def process():
