@@ -4,19 +4,19 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship, backref
 import uuid
 
-engine = sqlalchemy.create_engine('sqlite:///po.db')
+engine = sqlalchemy.create_engine('sqlite:///po.sqlite3')
 Base = declarative_base()
 
 
 class Order_Product(Base):
     __tablename__ = 'order_product'
     id = Column(String(35), primary_key=True, unique=True)
-    order_id = Column(Integer, ForeignKey('order.id'), primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), primary_key=True)
     product_id = Column(Integer, ForeignKey('products.id'), primary_key=True)
     quantity = Column(Integer)
 
     order = relationship('Order', backref=backref(
-        "order_products", cascade='all, delete-orphan'))
+        "order_products", cascade="all, delete-orphan"))
     product = relationship('Product', backref=backref(
         "order_products", cascade="all, delete-orphan"))
 
@@ -32,7 +32,7 @@ class Order_Product(Base):
     
 class Product(Base):
     __tablename__ = 'products'
-    id = Column(String(35), primary_key=True, uniquer=True)
+    id = Column(String(35), primary_key=True, unique=True)
     name = Column(String(80), nullable=False)
 
     orders = relationship("Order", secondary="order_product", viewonly=True)
@@ -45,12 +45,13 @@ class Product(Base):
     def __repr__(self):
         return '<Product {}>'.format(self.name)
 
+
 class Order(Base):
     __tablename__ = 'orders'
     id = Column(String(35), primary_key=True, unique=True)
     name = Column(String(80), nullable=False)
 
-    product =relationship(
+    products =relationship(
         "Product", secondary="order_product", viewonly=True)
 
     def add_products(self, items):
@@ -67,50 +68,49 @@ class Order(Base):
         return '<Order {}>'.format(self.name)
 
 
-    
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
 
-    Session = sessionmaker(bind=engine)
-    session = Session
+Session = sessionmaker(bind=engine)
+session = Session
 
-    prod1 = Product(name="Oreo")
-    prod2 = Product(name="Hide and Seek")
-    prod3 = Product(name="Marie")
-    prod4 = Product(name="Good Day")
+prod1 = Product(name="Oreo")
+prod2 = Product(name="Hide and Seek")
+prod3 = Product(name="Marie")
+prod4 = Product(name="Good Day")
 
 
-    session.add_all([prod1, prod2, prod3, prod4])
-    session.commit()
+session.add_all([prod1, prod2, prod3, prod4])
+session.commit()
 
-    order1 = Order(name="First Order")
-    order2 = Order(name="Second Order")
-
-    
-    order1.add_product([(prod1, 4), (prod2, 5), (prod3, 4)])
-    order2.add_product([(prod2, 6), (prod1, 1), (prod3, 2), (prod4, 1)])
-
-    session.commit()
+order1 =Order(name="First Order")
+order2 =Order(name="Second Order")
 
     
-    print('Products array of order1: ')
-    print(order1.products)
-    print("Products array of order2: ")
-    print(order2.products)
-    print("Orders array of prod1: ")
-    print(prod1.orders)
-    print("Orders array of prod2: ")
-    print(prod2.orders)
-    print("Orders array of prod3: ")
-    print(prod3.orders)
-    print("Orders array of prod4: ")
-    print(prod4.orders)
+order1.add_products([(prod1, 4), (prod2, 5), (prod3, 4)])
+order2.add_products([(prod2, 6), (prod1, 1), (prod3, 2), (prod4, 1)])
 
-    print("Order_Products Array of order1: ")
-    print(order1.order_products)
+session.commit()
 
-    print("Order_Products Array of prod1: ")
-    print(prod1.order_products)
+    
+print("Products array of order1: ")
+print(order1.products)
+print("Products array of order2: ")
+print(order2.products)
+print("Orders array of prod1: ")
+print(prod1.orders)
+print("Orders array of prod2: ")
+print(prod2.orders)
+print("Orders array of prod3: ")
+print(prod3.orders)
+print("Orders array of prod4: ")
+print(prod4.orders)
+
+print("Order_Products Array of order1: ")
+print(order1.order_products)
+
+print("Order_Products Array of prod1: ")
+print(prod1.order_products)
 
 
 
