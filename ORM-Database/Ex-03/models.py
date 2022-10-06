@@ -1,4 +1,3 @@
-from turtle import title
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Float
 

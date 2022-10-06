@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User
 
-engine = create_engine('sqlite:///user.db', echo = False)
+engine = create_engine('sqlite:///users.sqlite3', echo = False)
 
 Base.metadata.create_all(engine)
 
