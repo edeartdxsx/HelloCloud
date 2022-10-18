@@ -147,5 +147,5 @@ T1 = Table_Teacher(teacher_id='AMK',f_name='Anirach',l_name='Mingkhwan',e_mail='
 T2 = Table_Teacher(teacher_id='WKN',f_name='Watcharachai',l_name='Kongsiriwattana',e_mail='Watcharachai@gmail.com')
 T3 = Table_Teacher(teacher_id='STS',f_name='Sarayoot',l_name='Tanessakulwattana',e_mail='Sarayoot@gmail.com') 
 
-session.add_all([first_p,second_p,third_p,r1, r2,regis_a,r3, r4,regis_b,r5, r6,regis_c,s1 ,s2,s3,T1,T2,T3])
+session.add_all([first_p,second_p,third_p,r1,r2,regis_a,r3, r4,regis_b,r5, r6,regis_c,s1 ,s2,s3,T1,T2,T3])
 session.commit()
