@@ -1,5 +1,3 @@
-from distutils.log import debug
-from pickle import TRUE
 from flask import Flask, request,jsonify 
 from flask_sqlalchemy import SQLAlchemy 
 from flask_marshmallow import Marshmallow 
@@ -38,6 +36,6 @@ class ProductSchema(ma.Schema):
 
 product_schema = ProductSchema() 
 product_schema = ProductSchema(many=True) 
-
+db.create_all()
 if __name__ =='__main__': 
     app.run(debug=True)
