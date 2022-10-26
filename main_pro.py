@@ -123,21 +123,21 @@ r5 = Table_Registration(
     subject_id='060233113',
     year='2565',
     semester ='1',
-    grade = 'D')
+    grade = 'C')
 
 r6 = Table_Registration(
     student_id ='6406022610023',
     subject_id='060233201',
     year='2565',
     semester ='1',
-    grade = 'D') 
+    grade = 'C') 
 
 regis_c = Table_Registration(
     student_id ='6406022610023',
     subject_id='060233112',
     year='2565',
     semester ='1',
-    grade = 'D')
+    grade = 'C')
 
 s1 = Table_Subjects(subject_id ='060233113',subject_name='ADVANCED COMPUTER PROGRAMMIN',credit='3',teacher_id ='AMK')
 s2 = Table_Subjects(subject_id ='060233201',subject_name='NETWORK ENGINEERING LABORATO',credit='1',teacher_id ='WKN')
