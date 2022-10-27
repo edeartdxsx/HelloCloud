@@ -1,11 +1,11 @@
-from sqlalchemy import create_engine
+import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column,Integer, String, Text, DateTime, Float, Boolean, PickleType , CHAR, VARCHAR
+from sqlalchemy.orm import sessionmaker , relationship , backref 
 
+engine = sqlalchemy.create_engine('postgresql://webadmin:OVNase26154@node36512-kongphop.proen.app.ruk-com.cloud:5432/homework') #11243 Database postgresSQL
 Base = declarative_base()
-db_uri = 'sqlite:///Homework.sqlite3'
-engine = create_engine(db_uri, echo=False)
 
 class Table_Students(Base):
     __tablename__ = 'Students' 
@@ -44,13 +44,13 @@ class Table_Subjects(Base):
 class Table_Teacher(Base):
     __tablename__ = 'Teachers' 
     teacher_id = Column(String(3),primary_key=True, nullable=True)
-    f_name = Column(String(50), nullable=True)
-    l_name = Column(String(30), nullable=True)
-    e_mail = Column(String(50), nullable=True)
+    tf_name = Column(String(50), nullable=True)
+    tl_name = Column(String(30), nullable=True)
+    te_mail = Column(String(50), nullable=True)
 
     def __repr__(self):
-            return '<User(teacher_id = {} , f_name= {} , l_name = {} , e_mail = {})>'.format(self.teacher_id,\
-                    self.f_name, self.l_name , self.e_mail)
+            return '<User(teacher_id = {} , tf_name= {} , tl_name = {} , te_mail = {})>'.format(self.teacher_id,\
+                    self.tf_name, self.tl_name , self.te_mail)
 
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
@@ -143,9 +143,10 @@ s1 = Table_Subjects(subject_id ='060233113',subject_name='ADVANCED COMPUTER PROG
 s2 = Table_Subjects(subject_id ='060233201',subject_name='NETWORK ENGINEERING LABORATO',credit='1',teacher_id ='WKN')
 s3 = Table_Subjects(subject_id ='060233112',subject_name='DATA ENGINEERING',credit='3',teacher_id ='STS')
 
-T1 = Table_Teacher(teacher_id='AMK',f_name='Anirach',l_name='Mingkhwan',e_mail='Anirach@gmail.com')
-T2 = Table_Teacher(teacher_id='WKN',f_name='Watcharachai',l_name='Kongsiriwattana',e_mail='Watcharachai@gmail.com')
-T3 = Table_Teacher(teacher_id='STS',f_name='Sarayoot',l_name='Tanessakulwattana',e_mail='Sarayoot@gmail.com') 
+T1 = Table_Teacher(teacher_id='AMK',tf_name='Anirach',tl_name='Mingkhwan',te_mail='Anirach@gmail.com')
+T2 = Table_Teacher(teacher_id='WKN',tf_name='Watcharachai',tl_name='Kongsiriwattana',te_mail='Watcharachai@gmail.com')
+T3 = Table_Teacher(teacher_id='STS',tf_name='Sarayoot',tl_name='Tanessakulwattana',te_mail='Sarayoot@gmail.com') 
 
-session.add_all([first_p,second_p,third_p,r1,r2,regis_a,r3, r4,regis_b,r5, r6,regis_c,s1 ,s2,s3,T1,T2,T3])
+session.add_all([first_p,second_p,third_p,r1,r2,regis_a,r3, r4,regis_b,r5, r6,regis_c,s1 ,s2,s3,T1,T2,T3]) 
+
 session.commit()
