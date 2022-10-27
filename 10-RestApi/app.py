@@ -1,16 +1,18 @@
+
+from math import prod
+from unittest import result
 from flask import Flask, request,jsonify 
 from flask_sqlalchemy import SQLAlchemy 
 from flask_marshmallow import Marshmallow 
 import os
-
-from sqlalchemy import false 
 
 app = Flask(__name__) 
 basedir = os.path.abspath(os.path.dirname(__file__)) 
 
 # Data base 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir,'db.sqlite3') 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
+app.app_context().push()
 # Init db 
 db = SQLAlchemy(app) 
 # Init ma 
@@ -35,7 +37,60 @@ class ProductSchema(ma.Schema):
         fields =('id','name','description','price','qty') 
 
 product_schema = ProductSchema() 
-product_schema = ProductSchema(many=True) 
-db.create_all()
+products_schema = ProductSchema(many=True) 
+db.create_all() 
+# Create product 
+@app.route('/product',methods=['POST']) 
+def add_product(): 
+    name = request.json['name'] 
+    description = request.json['description'] 
+    price = request.json['price'] 
+    qty = request.json['qty'] 
+
+    new_product = Product(name,description,price,qty) 
+    db.session.add(new_product) 
+    db.session.commit() 
+
+    return product_schema.jsonify(new_product) 
+
+# Get All Products 
+@app.route('/product',methods = ['GET']) 
+def get_products(): 
+    all_products = Product.query.all() 
+    result = products_schema.dump(all_products) 
+    return jsonify(result) 
+
+# Get single product 
+@app.route('/product/<id>',methods = ['GET']) 
+def get_product(id): 
+    product = Product.query.get(id)  
+    return product_schema.jsonify(product)
+
+# Update product 
+@app.route('/product/<id>',methods = ['PUT']) 
+def update_product(id): 
+    product = Product.query.get(id) 
+
+    name = request.json['name'] 
+    description = request.json['description'] 
+    price = request.json['price'] 
+    qty = request.json['qty'] 
+
+    product.name = name 
+    product.description = description 
+    product.price = price 
+    product.qty = qty 
+
+    db.session.commit() 
+
+    return product_schema.jsonify(product)
+# Delete product 
+@app.route('/product/<id>',methods = ['DELETE']) 
+def delete_product(id): 
+    product = Product.query.get(id) 
+    db.session.delete(product) 
+    db.session.commit() 
+
+    return product_schema.jsonify(product) 
 if __name__ =='__main__': 
     app.run(debug=True)
