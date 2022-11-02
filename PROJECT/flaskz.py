@@ -7,7 +7,7 @@ def index():
     connection = psycopg2.connect(user='webadmin',
                                     password='OVNase26154',
                                     host='node36512-kongphop.proen.app.ruk-com.cloud',
-                                    port='11245',
+                                    port='5432',
                                     database='project')
     cursor1 = connection.cursor() 
 

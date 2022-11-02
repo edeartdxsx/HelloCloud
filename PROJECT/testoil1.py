@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String, Text, DateTime, Float, Boolean, 
 from sqlalchemy.ext.declarative import declarative_base
 from bs4 import BeautifulSoup
 import time
-engine = create_engine('postgresql://webadmin:OVNase26154@node36512-kongphop.proen.app.ruk-com.cloud:11245/project')
+engine = create_engine('postgresql://webadmin:OVNase26154@node36512-kongphop.proen.app.ruk-com.cloud:5432/project')
 Base = declarative_base()
 
 
@@ -38,20 +38,20 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-gname1 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL 95", gprice = oil[0]) 
-gname2 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL E20",gprice = oil[1]) 
-gname3 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL E85",gprice = oil[2]) 
-gname4 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL 91",gprice = oil[3]) 
-gname5 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="BENZINE 95",gprice = oil[4]) 
-gname6 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL B7",gprice = oil[5]) 
-gname7 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL PREMIUM",gprice = oil[6]) 
-gname8 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL B20",gprice = oil[7]) 
-gname9 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL",gprice = oil[8]) 
-gname10 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="SUPERPOWER GASOHOL 95",gprice = oil[9]) 
-gname11 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL 95 PREMIUM",gprice = oil[10]) 
+# gname1 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL 95", gprice = oil[0]) 
+# gname2 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL E20",gprice = oil[1]) 
+# gname3 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL E85",gprice = oil[2]) 
+# gname4 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL 91",gprice = oil[3]) 
+# gname5 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="BENZINE 95",gprice = oil[4]) 
+# gname6 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL B7",gprice = oil[5]) 
+# gname7 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL PREMIUM",gprice = oil[6]) 
+# gname8 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL B20",gprice = oil[7]) 
+# gname9 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="DIESEL",gprice = oil[8]) 
+# gname10 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="SUPERPOWER GASOHOL 95",gprice = oil[9]) 
+# gname11 = Oil_T(datex=soup.find('h2',{'class':'sub-title'}).text,gname="GASOHOL 95 PREMIUM",gprice = oil[10]) 
 
-session.add_all([gname1,gname2,gname3,gname4,gname5,gname6,gname7,gname8,gname9,gname10,gname11])
-session.commit()
+# session.add_all([gname1,gname2,gname3,gname4,gname5,gname6,gname7,gname8,gname9,gname10,gname11])
+# session.commit()
 
 while True:
     Base.metadata.drop_all(engine)
@@ -72,6 +72,6 @@ while True:
     
     session.add_all([gname1,gname2,gname3,gname4,gname5,gname6,gname7,gname8,gname9,gname10,gname11])
     session.commit()
-
-    time.sleep(10)
+    print("successfully")
+    time.sleep(36000)
 
