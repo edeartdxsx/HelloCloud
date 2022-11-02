@@ -12,7 +12,7 @@ try:
     cursor = connection.cursor()
 
     # Preparing query to create a database
-    sql = '''CREATE database homework'''
+    sql = '''CREATE database PROJECT'''
 
     #Creating  a database
     cursor.execute(sql)
