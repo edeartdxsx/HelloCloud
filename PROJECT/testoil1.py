@@ -73,5 +73,5 @@ while True:
     session.add_all([gname1,gname2,gname3,gname4,gname5,gname6,gname7,gname8,gname9,gname10,gname11])
     session.commit()
     print("successfully")
-    time.sleep(36000)
+    time.sleep(86000)
 
